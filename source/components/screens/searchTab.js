@@ -27,7 +27,7 @@ const initialLayout = {
 
 export default class Searchtab extends Component {
 
-  state = {
+  	state = {
       index: 0,
       routes: [
         { key: 'first', title: 'First' },
@@ -41,7 +41,7 @@ export default class Searchtab extends Component {
       this.nextScreen = this.nextScreen.bind(this)
     }
 
-  _handleIndexChange = index => this.setState({ index });
+  	_handleIndexChange = index => this.setState({ index });
 
     _renderHeader = props => {
         /*const isLastSlide = this.state.activeIndex === (this.props.slides.length - 1);
@@ -53,11 +53,11 @@ export default class Searchtab extends Component {
         console.log('tab props',props)
         return (
 			<View style={styles.nextPrvContainer}>
-				<Button style = {[styles.nextBtn,styles.marginLeft]}><Text stlye = {styles.text}>Back</Text></Button>
+				<Button style = {[styles.nextBtn,styles.marginLeft]} onPress={()=>this.prevQuestion(2)}><Text stlye = {styles.text}>Back</Text></Button>
 				<View style={styles.paginationDots}>
 					<Text style={[styles.blueText,styles.text]}>1 </Text><Text stlye = {styles.text}>/ 9</Text>
 				</View>
-				<Button style = {[styles.nextBtn,styles.marginRight]}><Text stlye = {styles.text}>Next</Text></Button>
+				<Button style = {[styles.nextBtn,styles.marginRight]} onPress={() => this.nextQuestion(1)}><Text stlye = {styles.text}>Next</Text></Button>
 			</View>
         )
       };
@@ -78,6 +78,13 @@ export default class Searchtab extends Component {
           });
         }
       }
+
+    prevQuestion = (index)=>{
+      console.log('previous question clicked...')
+    }
+    nextQuestion = (index) =>{
+      console.log('next question clicked....',index)
+    }
 
     renderScene = ({ route }) => {
       switch (route.key) {
@@ -155,7 +162,7 @@ const styles = StyleSheet.create({
   	flexWrap: 'wrap',
   	width:50,
   	height:20,
-  	borderRadius:5,
+  	borderRadius:10,
   	backgroundColor: "#fff",
   	borderColor: '#272727',
   	borderWidth: 0.5,

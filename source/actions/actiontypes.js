@@ -1,2 +1,3 @@
-export const INITIALIZED = 'kreu.app.INITIALIZED';
-export const ROOT_CHANGED = 'kreu.app.ROOT_CHANGED';
+export const INITIALIZED = 'INITIALIZED';
+export const ROOT_CHANGED = 'ROOT_CHANGED';
+export const CONFIRM_PASSWORD_ERROR = 'CONFIRM_PASSWORD_ERROR';

@@ -2,7 +2,7 @@
 * @Author: Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
 * @Date:   2018-02-06 13:00:09
 * @Last Modified by:   Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
-* @Last Modified time: 2018-02-06 18:30:32
+* @Last Modified time: 2018-03-01 16:43:50
 */
 
 import { Dimensions, StyleSheet } from 'react-native';
@@ -14,7 +14,7 @@ const globalStyles = {
 
     inputFields: {
         height: 40,
-        borderWidth: 1,
+        borderWidth: 0,
         margin: 10,
         width: width - 20,
         fontSize: 20,

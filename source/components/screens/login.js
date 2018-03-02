@@ -13,7 +13,8 @@ import {
 import styles from './style';
 import {Navigation} from 'react-native-navigation';
 import {connect} from 'react-redux';
-import * as  appActions from '../../actions/index';
+// import * as  appActions from '../../actions/index';
+import LoginActions from '../../actions/loginActions';
 
 export class Login extends Component {
 
@@ -47,8 +48,11 @@ export class Login extends Component {
                 type="password"
                 onChange={(text) => this.setState({ password: text })}
                 value={this.state.password} />
-              <Button onPress={ () => this.onLoginPress() }>
+              <Button onPress={ () => this.props.login() }>
                 <Text style={styles.buttonText}>Login</Text>
+              </Button>
+              <Button onPress={ () => this.props.newUser() } style={styles.newUserBtn}>
+                <Text style={styles.buttonText}>New user? Sign up</Text>
               </Button>
             </View>
         </View>
@@ -60,11 +64,19 @@ export class Login extends Component {
     Changes the root value of the app to be 'after-login', changing it to tab view
   */
   onLoginPress() {
-
-    this.props.dispatch(appActions.login());
-
+    // this.props.dispatch(appActions.login());
+    console.log('login pressed...');
+  }
+  newUser() {
+    // this.props.dispatch(appActions.newUser());
+    console.log('new user pressed...');
   }
 }
 
+function mapStateToProps(state, ownProps) {
+  let { loginStatus} = state;
+  return { loginStatus };
+}
 
-export default connect()(Login);
+
+export default connect(mapStateToProps,LoginActions)(Login);

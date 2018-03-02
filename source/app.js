@@ -32,17 +32,26 @@ export default class  App extends Component {
         this.currentRoot = root;
         this.startApp(root);
       }
-    }
+  }
 
   startApp(root) {
     switch (root) {
         case 'login':
           Navigation.startSingleScreenApp({
                     screen: {
-                    screen: 'LifeDiary.Login', // unique ID registered with Navigation.registerScreen
+                    screen: 'LifeDiary.Login',
+                    navigatorStyle: {},
+                    navigatorButtons: {}
+                    },
+                });
+                return;
 
-                    navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
-                    navigatorButtons: {} // override the nav buttons for the screen, see "Adding buttons to the navigator" below (optional)
+        case 'signup':
+          Navigation.startSingleScreenApp({
+                    screen: {
+                    screen: 'LifeDiary.SignUp',
+                    navigatorStyle: {},
+                    navigatorButtons: {}
                     },
                 });
                 return;
@@ -61,9 +70,6 @@ export default class  App extends Component {
                       tabBarHidden: true
                     }
                 },
-
-
-
                 ],
             });
             return;

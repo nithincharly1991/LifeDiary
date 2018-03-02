@@ -2,7 +2,7 @@
 * @Author: Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
 * @Date:   2018-02-06 12:57:46
 * @Last Modified by:   Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
-* @Last Modified time: 2018-02-15 18:41:05
+* @Last Modified time: 2018-02-27 13:11:21
 */
 
 
@@ -41,7 +41,13 @@ let styles = {
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
-
+        position:'relative',
+        flex:1,
+    },
+    newUserBtn:{
+        position:'absolute',
+        bottom:0,
+        width:'100%',
     }
 };
 
