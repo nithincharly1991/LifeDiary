@@ -2,7 +2,7 @@
 * @Author: Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
 * @Date:   2018-02-27 12:53:17
 * @Last Modified by:   Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
-* @Last Modified time: 2018-03-02 15:13:04
+* @Last Modified time: 2018-03-06 13:07:16
 */
 import React, { Component } from 'react';
 import {
@@ -22,7 +22,7 @@ import {connect} from 'react-redux';
 // import * as  appActions from '../../actions/index';
 import signupActions from '../../actions/signupActions';
 
-export class Signup extends Component {
+class Signup extends Component {
 
   constructor(props) {
     super(props);

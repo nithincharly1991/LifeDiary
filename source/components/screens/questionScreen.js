@@ -2,7 +2,7 @@
 * @Author: Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
 * @Date:   2018-02-16 12:20:12
 * @Last Modified by:   Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
-* @Last Modified time: 2018-02-22 19:10:05
+* @Last Modified time: 2018-03-23 16:51:20
 */
 
 import * as React from 'react';
@@ -11,23 +11,25 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, TouchableW
 import {
   Input,
 } from '../widgets';
+import {connect} from 'react-redux';
+import questionActions from '../../actions/questionActions';
 
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width; //full width
 
-
-
-export default class QuestionScreen extends React.Component {
+class QuestionScreen extends React.Component {
 
 	constructor(props){
 		super(props);
-		// this.commentInputView = this.commentInputView.bind(this);
-
+     this.state = {commentExpanded:false};
 	}
 
-	state = {commentExpanded:false,actveIndex:-1};
+  componentDidMount(){
+    this.props.question.comment = this.props.comment;
+    this.props.question.selectedAns = this.props.answer;
+  }
 
-	commentInputView = () => {
+	commentInputView = () =>{
 		this.setState({commentExpanded:true})
 	}
 
@@ -35,37 +37,32 @@ export default class QuestionScreen extends React.Component {
 		this.setState({commentExpanded:false})
 	}
 
-	selectAnswer = (option) =>{
+	/*selectAnswer = (option) =>{
 		console.log('select answer called yeah yeah...',option);
 		this.setState({actveIndex:option})
-	}
+	}*/
 
 	render(){
-		/*var nextScreen = this.props.nextScreen;
-		var moveTo = this.props.state.index + 1;
-		console.log('this.props.data',this.props.dataTochild)
-		var source = this.props.dataTochild.img;
-		var textTodis = this.props.dataTochild.text;*/
 		var options = ['Best','Better','Good','Neutral','Bad','Worse','Worst'];
 	  	return (
 		    <View style = {styles.pageContainer}>
 			    <View style={styles.page}>
 			       	<Image style={styles.introImg} source = {require('../../img/6.jpg')}/>
    			        <Text style={styles.questHeading}>
-   			          Food
+   			          {this.props.category}
    			        </Text>
-   			        <Text style = {styles.questText}>Are you satisfied with the </Text>
+   			        <Text style = {styles.questText}>{this.props.questionToChild} </Text>
    			        <View style = {styles.btnContainer}>
    			        { options.map((option,index)=>(
-   			        	this.state.actveIndex == index ?
-   			        	<TouchableWithoutFeedback key = {index} onPress = {()=>this.selectAnswer(index)} style={styles.roundBtnWrap}>
+   			        	this.props.question.selectedAns == option ?
+   			        	<TouchableWithoutFeedback key = {index} onPress = {()=>this.props.selectAnswer(option)} style={styles.roundBtnWrap}>
    			        		<View style={[styles.roundBtn,styles.activeRoundBtn,styles['activeroundBtn'+option]]}>
    			        			<Text style={styles.btnTextWhite}>{option}</Text>
    			        			<Image source = {require('../../img/White_check.svg')} style={styles.tickIcon}></Image>
    			        		</View>
    			        	</TouchableWithoutFeedback>
    			        	:
-   			        	<TouchableWithoutFeedback key = {index} onPress = {()=>this.selectAnswer(index)} style={styles.roundBtnWrap}>
+   			        	<TouchableWithoutFeedback key = {index} onPress = {()=>this.props.selectAnswer(option)} style={styles.roundBtnWrap}>
    			        		<View style={[styles.roundBtn,styles['roundBtn'+option]]}>
    			        			<Text style={styles.btnText}>{option}</Text>
    			        		</View>
@@ -78,8 +75,8 @@ export default class QuestionScreen extends React.Component {
 				            <View style={styles.commentContainer}>
 				            	<Input style={styles.commentInput}
 		        	                placeholder="Enter your comments here.."
-		        	                onChange={(text) => this.setState({ username: text })}
-		        	                value={this.state.username}
+		        	                onChangeText={(text) => this.props.onChangeComment(text)}
+		        	                value={this.props.question.comment}
 		        	                multiline = {true} />
 				            </View>
 				            <TouchableOpacity style={[styles.commentBtn,styles.commentBtnExp]} onPress={this.commentInputShrink}>
@@ -201,6 +198,8 @@ const styles = StyleSheet.create({
   questText:{
   	textAlign:'center',
   	fontSize:16,
+    paddingLeft:50,
+    paddingRight:50,
   },
   btnContainer:{
   	display:'flex',
@@ -292,3 +291,11 @@ const styles = StyleSheet.create({
   	position:'relative'
   }
 });
+
+function mapStateToProps(state, ownProps) {
+  let { question } = state;
+  return { question };
+}
+
+
+export default connect(mapStateToProps,questionActions)(QuestionScreen);

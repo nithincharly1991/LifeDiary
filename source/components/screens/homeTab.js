@@ -48,7 +48,7 @@ export default class Hometab extends Component {
       const skipBtn = (!isFirstSlide && this._renderPrevButton()) || (!isLastSlide && this._renderSkipButton());
       // const skipBtn = this._renderPrevButton();
       const btn = isLastSlide ? this._renderDoneButton() : this._renderNextButton();*/
-      console.log('tab props',props)
+
       return (
         <View style={styles.paginationContainer}>
           <View style={styles.paginationDots}>
@@ -81,7 +81,7 @@ export default class Hometab extends Component {
     }
     else{
     	this.props.navigator.push({
-    	  screen: 'LifeDiary.SearchTab',
+    	  screen: 'LifeDiary.HomeScreen',
     	  title: '',
     	  navigatorStyle: {
           	tabBarHidden: true

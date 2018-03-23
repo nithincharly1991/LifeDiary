@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  TouchableOpacity,
-  Text,
-  Image,
-  View
+	AppRegistry,
+	TouchableOpacity,
+	Text,
+	Image,
+	View
 } from 'react-native';
 import {
-  Input,
-  Button
+	Input,
+	Button
 } from '../widgets';
 import styles from './style';
 import {Navigation} from 'react-native-navigation';
@@ -16,67 +16,53 @@ import {connect} from 'react-redux';
 // import * as  appActions from '../../actions/index';
 import LoginActions from '../../actions/loginActions';
 
-export class Login extends Component {
+class Login extends Component {
 
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      username: '',
-      password: '',
-      styles: {
-        login: {},
-        logo: {}
-      }
-    }
-  }
+		this.state = {
+			username: '',
+			password: '',
+			styles: {
+				login: {},
+				logo: {}
+			}
+		}
+	}
 
-  static navigatorStyle = {
-    navBarHidden: true
-  };
+	static navigatorStyle = {
+		navBarHidden: true
+	};
 
-  render() {
-    return (
-        <View style={styles.container}>
-            <View style={styles.login}>
-              <Input style={styles.inputFields}
-                placeholder="Email id/phone"
-                onChange={(text) => this.setState({ username: text })}
-                value={this.state.username} />
-              <Input style={styles.inputFields}
-                placeholder="Password"
-                type="password"
-                onChange={(text) => this.setState({ password: text })}
-                value={this.state.password} />
-              <Button onPress={ () => this.props.login() }>
-                <Text style={styles.buttonText}>Login</Text>
-              </Button>
-              <Button onPress={ () => this.props.newUser() } style={styles.newUserBtn}>
-                <Text style={styles.buttonText}>New user? Sign up</Text>
-              </Button>
-            </View>
-        </View>
-    );
-  }
-
-  /*
-  onLoginPress:
-    Changes the root value of the app to be 'after-login', changing it to tab view
-  */
-  onLoginPress() {
-    // this.props.dispatch(appActions.login());
-    console.log('login pressed...');
-  }
-  newUser() {
-    // this.props.dispatch(appActions.newUser());
-    console.log('new user pressed...');
-  }
+	render() {
+		return (
+			<View style={styles.container}>
+				<View style={styles.login}>
+					<Input style={styles.inputFields}
+						placeholder="Email id/phone"
+						onChangeText={(text) => this.setState({ username: text })}
+						value={this.state.username} />
+					<Input style={styles.inputFields}
+						placeholder="Password"
+						type="password"
+						onChangeText={(text) => this.setState({ password: text })}
+						value={this.state.password} />
+					<Button onPress={ () => this.props.login(this.state.username,this.state.password) }>
+						<Text style={styles.buttonText}>Login</Text>
+					</Button>
+					<Button onPress={ () => this.props.newUser() } style={styles.newUserBtn}>
+						<Text style={styles.buttonText}>New user? Sign up</Text>
+					</Button>
+				</View>
+			</View>
+		);
+	}
 }
 
 function mapStateToProps(state, ownProps) {
-  let { loginStatus} = state;
-  return { loginStatus };
+	let { loginStatus} = state;
+	return { loginStatus };
 }
-
 
 export default connect(mapStateToProps,LoginActions)(Login);

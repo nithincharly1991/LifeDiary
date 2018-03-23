@@ -1,5 +1,6 @@
 import * as types from './actiontypes';
 import HTTPHandler from '../utils/HttpOps';
+import { AsyncStorage } from 'react-native';
 
 /*
 Action Creators
@@ -18,15 +19,17 @@ dispatch the actionCreators
 
 export function appInitialized() {
     return async function(dispatch, getState) {
-        // since all business logic should be inside redux actions
-        // this is a good place to put your app initialization code
-        dispatch(changeAppRoot('login'));
+        const value = await AsyncStorage.getItem('AUTH_TOKEN');
+        if (value !== null){
+			dispatch(changeAppRoot('after-login'));
+        }else{
+        	dispatch(changeAppRoot('login'));
+        }
     };
 }
 
 export function newUser() {
     return async function(dispatch, getState) {
-
         dispatch(changeAppRoot('signup'));
     };
 }

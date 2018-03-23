@@ -2,7 +2,7 @@
 * @Author: Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
 * @Date:   2018-02-15 12:28:20
 * @Last Modified by:   Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
-* @Last Modified time: 2018-02-15 19:38:07
+* @Last Modified time: 2018-03-22 16:25:02
 */
 
 import * as React from 'react';
@@ -13,7 +13,6 @@ export default class IntroScreen extends React.Component {
 	render(){
 		var nextScreen = this.props.nextScreen;
 		var moveTo = this.props.state.index + 1;
-		console.log('this.props.data',this.props.dataTochild)
 		var source = this.props.dataTochild.img;
 		var textTodis = this.props.dataTochild.text;
 	  return (

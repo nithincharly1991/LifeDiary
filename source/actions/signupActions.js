@@ -2,7 +2,7 @@
 * @Author: Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
 * @Date:   2018-02-28 10:58:04
 * @Last Modified by:   Nithin Charly @ Irisind AB <nithin.charly@irisind.com>
-* @Last Modified time: 2018-03-02 16:15:10
+* @Last Modified time: 2018-03-06 11:03:20
 */
 import * as types from './actiontypes';
 import HTTPHandler from '../utils/HttpOps';
@@ -47,7 +47,6 @@ export default function(dispatch){
 				     });
 
 				     await this.getSession(token)*/
-
 				     console.log('after sign up response...',response)
 
 				} catch (error) {

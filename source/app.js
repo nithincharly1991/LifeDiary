@@ -10,16 +10,21 @@ import registerScreens from './components/screens/screens.js';
 import * as reducers from "./reducers/index";
 import * as appActions from "./actions/index";
 import thunk from "redux-thunk";
+
+import SQLite from 'react-native-sqlite-storage';
+
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);
 const store = createStoreWithMiddleware(reducer);
 registerScreens(store, Provider);
+let db;
 
 export default class  App extends Component {
 
   constructor(props) {
     super(props);
     store.subscribe(this.onStoreUpdate.bind(this));
+    this.initDb();
     store.dispatch(appActions.appInitialized());
   }
 
@@ -32,6 +37,57 @@ export default class  App extends Component {
         this.currentRoot = root;
         this.startApp(root);
       }
+  }
+
+  errorCB(err) {
+    console.log("SQL Error: " + err);
+  }
+
+  openCB() {
+    console.log("Database OPENED");
+  }
+
+  successCB() {
+    console.log("query executed successfully..")
+  }
+
+  closeCB() {
+    console.log("Database closed...")
+  }
+
+  closeDatabase(){
+    db.close(this.closeCB,this.errorCB);
+    // console.log(close database called...)
+  }
+
+  tablecheckSuccess(msg){
+    console.log('table check success called',msg)
+    // this.closeDatabase();
+  }
+
+  tablecheckFail(err){
+    console.log('table check failed...',err)
+    db.transaction((tx)=>{
+      tx.executeSql('CREATE TABLE IF NOT EXISTS questionLog( '
+          + '_id INTEGER PRIMARY KEY NOT NULL, '
+          + 'questionId VARCHAR(30), '
+          + 'answer VARCHAR(30), '
+          + 'comment VARCHAR(30),'
+          + 'date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ); ', [], this.successCB, this.errorCB);
+
+      tx.executeSql('CREATE TABLE IF NOT EXISTS completedDays( '
+        + '_id INTEGER PRIMARY KEY NOT NULL, '
+        + 'date TIMESTAMP );',[],this.successCB, this.errorCB);
+    });
+    // db.close(this.closeCB,this.errorCB);
+    // this.closeDatabase();
+  }
+
+  initDb(){
+    db = SQLite.openDatabase({name:"lifediary.db"}, this.openCB, this.errorCB);
+    /*db.executeSql('DROP TABLE IF EXISTS questionLog;');
+    db.executeSql('DROP TABLE IF EXISTS completedDays;');*/
+    db.executeSql('SELECT 1 FROM questionLog LIMIT 1;', [], this.tablecheckSuccess.bind(this), this.tablecheckFail)
   }
 
   startApp(root) {

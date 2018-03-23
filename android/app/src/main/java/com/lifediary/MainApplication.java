@@ -10,6 +10,8 @@ import com.facebook.soloader.SoLoader;
 
 import com.reactnativenavigation.NavigationApplication;
 
+import org.pgsqlite.SQLitePluginPackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class MainApplication extends NavigationApplication {
 		// No need to add RnnPackage and MainReactPackage
 		return Arrays.<ReactPackage>asList(
 		// eg. new VectorIconsPackage()
+		new SQLitePluginPackage()
 		);
 	}
 
